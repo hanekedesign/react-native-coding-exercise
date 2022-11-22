@@ -2,7 +2,7 @@
 
 This is a React app interview challenge. Please fork this repo, and push your code to a branch in your forked repo (following the instructions below).
 
-In this exercise you will create a spacex launch table that has sorting, search and pagination. Data will be available at the endpoint provided in the .env file. 
+In this exercise you will create a spacex launch table that has sorting, search and pagination. Data will be available at the endpoint provided in the .env file.
 
 Designs can be found [here](https://zpl.io/DlRA7eW). You will receive login credentials separately in order to access the designs and associated assets.
 
