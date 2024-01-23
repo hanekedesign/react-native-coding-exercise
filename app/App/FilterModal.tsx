@@ -16,7 +16,7 @@ const FilterModal = ({ modalVisible, handleFilterIconOrBackdropPress, handleFilt
   return (
     <Modal
       animationType="slide"
-      transparent={true}
+      transparent
       visible={modalVisible}
       onRequestClose={handleFilterIconOrBackdropPress} 
     >

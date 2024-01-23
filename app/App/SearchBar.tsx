@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/Colors';
 import { Fonts } from '../../constants/Fonts';
 
@@ -11,8 +11,7 @@ interface SearchBarProps {
 const SearchBar = ({ searchTerm, setSearchTerm }: SearchBarProps) => {
   return (
     <View style={styles.searchBar}>
-      <View style={styles.searchIconContainer}>
-      </View>
+      <View style={styles.searchIconContainer} />
       <TextInput 
         style={styles.searchInput} 
         placeholder="Search for flights"

@@ -50,12 +50,27 @@ export default function Root() {
 
   const find = searchTerm ? { mission_name: { $regex: searchTerm } } : {};
 
+  
   const { loading, error, data, refetch } = useQuery(GET_LAUNCHES_PAST, {
     variables: { order: 'desc', sort: 'launch_year', offset: 0, limit: 10, find },
     onError: (error) => {
       console.error('GraphQL Query Error:', error);
     },
   });
+
+  useEffect(() => {
+    if (data && data.launchesPast) {
+      const sortedData = sortData(data.launchesPast, sortOrder);
+      const filteredData = extractData(sortedData, selectedFilter as FilterOption);
+      setVisibleData(filteredData.slice(0, displayedRecords) as never[]);
+    }
+  }, [data, displayedRecords, selectedFilter, sortOrder]);
+
+  // Second useEffect for filtering
+  useEffect(() => {
+    const filteredData = data ? extractData(data.launchesPast, selectedFilter as FilterOption) : [];
+    setVisibleData(filteredData.slice(0, displayedRecords) as never[]);
+  }, [data, displayedRecords, selectedFilter]);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) {
@@ -67,26 +82,12 @@ export default function Root() {
     return <Text>No data available.</Text>;
   }
   
-  useEffect(() => {
-    if (data && data.launchesPast) {
-      const sortedData = sortData(data.launchesPast, sortOrder);
-      const filteredData = extractData(sortedData, selectedFilter as FilterOption);
-      setVisibleData(filteredData.slice(0, displayedRecords) as never[]);
-    }
-  }, [data, displayedRecords, selectedFilter, sortOrder]);
-  
   const handleSearchInputChange = (text: string) => {
     setSearchTerm(text);
     refetch({
       find: { mission_name: { $regex: text } }
     });
   };
-
-  // FILTERS SECTION 
-  useEffect(() => {
-    const filteredData = data ? extractData(data.launchesPast, selectedFilter as FilterOption) : [];
-    setVisibleData(filteredData.slice(0, displayedRecords) as never[]);
-  }, [data, displayedRecords, selectedFilter]);
   
   const handleFilterSelect = (filterOption: string) => {
     setSelectedFilter(filterOption);

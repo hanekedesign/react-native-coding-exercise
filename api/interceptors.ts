@@ -46,7 +46,7 @@ const logResponse = (response: AxiosResponse) => {
 };
 
 const logErrorResponse = (error: AxiosError) => {
-  if (true || (ENV === "development" && shouldLog(error?.config))) {
+  if (ENV === "development" && shouldLog(error?.config)) {
     console.log(
       JSON.stringify(
         {
@@ -70,7 +70,7 @@ export const requestIntercept =
       if (token) config.headers.Authorization = `Bearer ${token}`;
       logRequest(config);
       return config;
-    } catch (e) {
+    } catch {
       if (ENV === "development") console.warn("NO TOKEN FOUND IN STORAGE");
       logRequest(config);
       return config;
